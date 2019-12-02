@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <style>
+    .in_div {
+      height: 278px;
+      width: 185px;
+      margin-left: 30px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    img {
+      border-radius: 10px;
+    }
+
+    .title {
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 40px;
+      font-style: italic;
+      font-weight: bold;
+            color: white;
+    }
+
+    .in_div:hover {
+      transform: scale(1.2);
+    }
+
+    .header {
+      height: 40px;
+      width: 50px;
+      margin-right: 20px;
+      font-style: italic;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      padding-top: 100px;
+    }
+
+    header {
+      background-color: #0E0E0E;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    input {
+      height: 40px;
+      width: 600px;
+      margin-left: 22%;
+      border-radius: 6px;
+    }
+
+    button {
+      height: 40px;
+      width: 90px;
+      border-width: 0px;
+      border-radius: 5px;
+      background-color: #121212;
+      color:white;
+    }
+
+    .table_img {
+      height: 180px;
+      width: 120px;
+      border-radius: 5px;
+    }
+
+    p {
+      font-size: 17px;
+      color:white;
+    }
+
+    tr,
+    td {
+      padding: 10px;
+
+      font-weight: bold;
+      border-top: 2px solid black;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    tr:hover {
+      background-color:  #121212;
+    }
+
+    #dropdown{
+      display: inline-block;
+      position: relative;
+    }
+    #dropdown_content{
+      display: none;
+      position: absolute;
+      z-index: 1;
+      background-color: black;
+      font-size: 20px;
+      width:220px;
+    }
+    #drop_button{
+      margin-left: 24%;
+      color: white;
+    }
+    #dropdown_content a{
+      display: block;
+      color: white;
+      padding: 10px 10px
+
+    }
+    #dropdown:hover #dropdown_content{
+      display: block;
+    }
+
+    #dropdown_content a:hover{
+      background-color: #121212;
+    }
+  </style>
+</head>
+<header>
+  <div id="dropdown">
+    <button id="drop_button">Menu</button>
+    <div id="dropdown_content">
+  <a href="index.html">Home</a>
+  <a href="upcoming.html">Latest Movies</a>
+  <a href="toprated.html">Toprated Movies</a>
+  <a href="trending.html">Popular Movies</a>
+</div>
+</div>
+  <input type="text" id="inp" placeholder="Search Movie">
+  <button id='btn' onclick="search()">Search</button>
+</header>
+
+<body id="body_del" style="background-color:black;">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div id="del">
+    <div id="upcoming" style="background-color:#0F0F0F;border-radius:10px; margin-bottom:30px;">
+    </div>
+    <div id="toprated" style="background-color:#0F0F0F;border-radius:10px;  margin-bottom:30px;">
+    </div>
+    <div id="popular" style="background-color:#0F0F0F;border-radius:10px;">
+    </div>
+  </div>
+  <script>
+    var upcoming = 'https://api.themoviedb.org/3/movie/upcoming?api_key=1abd7f142c9c3c96b26874f416be8d5b&language=en-US&page=1'
+    var popular = 'https://api.themoviedb.org/3/movie/popular?api_key=1abd7f142c9c3c96b26874f416be8d5b&language=en-US&page=1'
+    var toprated = 'https://api.themoviedb.org/3/movie/top_rated?api_key=1abd7f142c9c3c96b26874f416be8d5b&language=en-US&page=1'
+    var im_li = 'http://image.tmdb.org/t/p/w185/'
+
+
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', popular)
+    xhr.onreadystatechange = test1
+
+    function test1() {
+      if (this.readyState == 4 && this.status == 200) {
+        var data = JSON.parse(this.responseText)
+        var out_div = document.getElementById('popular')
+        var in_div = document.createElement('div')
+        in_div.setAttribute('class', 'title')
+        in_div.innerHTML = 'Popular Movies'
+        out_div.appendChild(in_div)
+        for (var i = 0; i < 6; i++) {
+          var in_div = document.createElement('div')
+          in_div.setAttribute('class', 'in_div')
+          var image = document.createElement('img')
+          image.setAttribute('src', im_li + data.results[i].poster_path)
+          in_div.appendChild(image)
+          out_div.appendChild(in_div)
+        }
+      }
+    }
+    xhr.send();
+
+
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', upcoming)
+    xhr.onreadystatechange = test2
+
+    function test2() {
+      if (this.readyState == 4 && this.status == 200) {
+        var data = JSON.parse(this.responseText)
+        var out_div = document.getElementById('upcoming')
+        var in_div = document.createElement('div')
+        in_div.setAttribute('class', 'title')
+        in_div.innerHTML = 'Latest Movies'
+        out_div.appendChild(in_div)
+        for (var i = 0; i < 6; i++) {
+          var in_div = document.createElement('div')
+          in_div.setAttribute('class', 'in_div')
+          var image = document.createElement('img')
+          image.setAttribute('src', im_li + data.results[i].poster_path)
+          in_div.appendChild(image)
+          out_div.appendChild(in_div)
+        }
+      }
+    }
+    xhr.send();
+
+
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', toprated)
+    xhr.onreadystatechange = test3
+
+    function test3() {
+      if (this.readyState == 4 && this.status == 200) {
+        var data = JSON.parse(this.responseText)
+        var out_div = document.getElementById('toprated')
+        var in_div = document.createElement('div')
+        in_div.setAttribute('class', 'title')
+        in_div.innerHTML = 'Top-Rated Movies'
+        out_div.appendChild(in_div)
+        for (var i = 0; i < 6; i++) {
+          var in_div = document.createElement('div')
+          in_div.setAttribute('class', 'in_div')
+          var image = document.createElement('img')
+          image.setAttribute('src', im_li + data.results[i].poster_path)
+          in_div.appendChild(image)
+          out_div.appendChild(in_div)
+        }
+      }
+    }
+    xhr.send();
+
+
+    function search() {
+      var url = 'https://api.themoviedb.org/3/search/movie?api_key=1abd7f142c9c3c96b26874f416be8d5b&query='
+      var im_li = 'http://image.tmdb.org/t/p/w185/'
+      var movie = document.getElementById('inp')
+      url = url + movie.value
+      var xhr = new XMLHttpRequest()
+      xhr.open('Get', url)
+      xhr.onreadystatechange = test4
+
+      function test4() {
+        if (this.readyState == 4 && this.status == 200) {
+          var data = JSON.parse(this.responseText)
+          var m_table = document.createElement('table')
+          var del_div = document.getElementById('del')
+          var body = document.getElementById('body_del')
+          del_div.innerHTML = ' '
+          var serial = 0
+          for (var i = 0; i < data.results.length; i++) {
+            if (data.results[i].poster_path != null && data.results[i].vote_average > 0) {
+              serial = serial + 1
+              var table_row = document.createElement('tr')
+              var table_data = document.createElement('td')
+              var image = document.createElement('img')
+              image.setAttribute('class', 'table_img')
+              image.setAttribute('src', im_li + data.results[i].poster_path)
+              table_data.appendChild(image)
+              var table_data2 = document.createElement('td')
+              var text = document.createTextNode(serial + '.        ' + data.results[i].original_title)
+              var title = document.createElement('p')
+              title.appendChild(text)
+              table_data2.appendChild(title)
+              var table_data3 = document.createElement('td')
+              var text = document.createTextNode(data.results[i].vote_average)
+              var rating = document.createElement('p')
+              rating.appendChild(text)
+              table_data3.appendChild(rating)
+              table_row.appendChild(table_data)
+              table_row.appendChild(table_data2)
+              table_row.appendChild(table_data3)
+              m_table.appendChild(table_row)
+            }
+          }
+          del_div.appendChild(m_table)
+        }
+      }
+      xhr.send()
+    }
+  </script>
+</body>
+
+</html>
