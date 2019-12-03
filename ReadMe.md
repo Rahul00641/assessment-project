@@ -14,6 +14,7 @@ Sources and their Links ->  upcoming = 'https://api.themoviedb.org/3/movie/upcom
 			    popular = 'https://api.themoviedb.org/3/movie/popular?api_key=<<api key>>&language=en-US&page=1'
 			    toprated = 'https://api.themoviedb.org/3/movie/top_rated?api_key=<<api key>>&language=en-US&page=1'
 			    search ='https://api.themoviedb.org/3/search/movie?api_key=<<api key>>&query=<<movie name>>
+	                    movie info ='https://api.themoviedb.org/3/movie/<<movie id>>?api_key=<<api key>>&language=en-US'
 
 Assessment Link  ->  https://Rahul00641.github.io/assessment-project
 
