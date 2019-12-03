@@ -215,10 +215,16 @@
             var rating = document.createElement('p')
             rating.appendChild(text)
             table_data4.appendChild(rating)
+            var table_data5 = document.createElement('td')
+            var text = document.createTextNode(data.results[i].release_date)
+            var date = document.createElement('p')
+            date.appendChild(text)
+            table_data5.appendChild(date)
             table_row.appendChild(table_data)
             table_row.appendChild(table_data2)
             table_row.appendChild(table_data3)
             table_row.appendChild(table_data4)
+            table_row.appendChild(table_data5)
             m_table.appendChild(table_row)
           }
         }
