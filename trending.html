@@ -238,6 +238,56 @@
       }
     }
     xhr.send()
+    
+    
+        var url = 'https://api.themoviedb.org/3/movie/popular?api_key=1abd7f142c9c3c96b26874f416be8d5b&language=en-US&page=3'
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', url)
+    xhr.onreadystatechange = test3
+
+    function test3() {
+      if (this.readyState == 4 && this.status == 200) {
+        var data = JSON.parse(this.responseText)
+        var m_table = document.getElementById('main')
+        for (var i = 0; i < data.results.length; i++) {
+          if (data.results[i].poster_path != null && data.results[i].vote_average > 0) {
+            serial = serial + 1
+            var table_row = document.createElement('tr')
+            var table_data = document.createElement('td')
+            var image = document.createElement('img')
+            image.setAttribute('src', im_li + data.results[i].poster_path)
+            table_data.appendChild(image)
+            var table_data2 = document.createElement('td')
+            var text = document.createTextNode(serial + '.        ' + data.results[i].original_title)
+            var title = document.createElement('p')
+            title.appendChild(text)
+            table_data2.appendChild(title)
+            var table_data3 = document.createElement('td')
+            var text = document.createTextNode(data.results[i].overview)
+            var overview = document.createElement('p')
+            overview.appendChild(text)
+            table_data3.appendChild(overview)
+            var table_data4 = document.createElement('td')
+            var text = document.createTextNode(data.results[i].vote_average)
+            var rating = document.createElement('p')
+            rating.appendChild(text)
+            table_data4.appendChild(rating)
+            var table_data5 = document.createElement('td')
+            var text = document.createTextNode(data.results[i].release_date)
+            var date = document.createElement('p')
+            date.appendChild(text)
+            table_data5.appendChild(date)
+            table_row.appendChild(table_data)
+            table_row.appendChild(table_data2)
+            table_row.appendChild(table_data3)
+            table_row.appendChild(table_data4)
+            table_row.appendChild(table_data5)
+            m_table.appendChild(table_row)
+          }
+        }
+      }
+    }
+    xhr.send()
 
 
 
