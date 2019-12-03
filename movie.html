@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <style>
+    #movie_image{
+      float: left;
+      height: 500px;
+      width: 30%;
+      margin-right: 50px;
+      border: 1px solid white;
+    }
+    .abc,h2{
+      color:white;
+      font-family: cursive;
+    }
+    p{
+      font-size: 30px;
+    }
+    h2{
+      font-size: 70px;
+    }
+    body{
+      background-color: black;
+    }
+    .pro_img{
+      background-color: white;
+
+    }
+    .com_img{
+      display: inline-block;
+      margin-right: 20px;
+      border: 1px solid white;
+    }
+    hr{
+      margin-bottom: 40px;
+    }
+    tr,
+    td {
+      padding: 10px;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      border-top: 2px solid black;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    tr:hover {
+      background-color:  #121212;
+    }
+
+    #dropdown{
+      display: inline-block;
+      position: relative;
+    }
+    #dropdown_content{
+      display: none;
+      position: absolute;
+      z-index: 1;
+      background-color: black;
+      font-size: 20px;
+      width:220px;
+    }
+    #drop_button{
+      margin-left: 24%;
+      color: white;
+    }
+    #dropdown_content a{
+      display: block;
+      color: white;
+      padding: 10px 10px
+
+    }
+    #dropdown:hover #dropdown_content{
+      display: block;
+    }
+
+    #dropdown_content a:hover{
+      background-color: #121212;
+    }
+    .header {
+      height: 40px;
+      width: 50px;
+      margin-right: 20px;
+      font-style: italic;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      padding-top: 100px;
+    }
+
+    header {
+      background-color: #0E0E0E;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    input {
+      height: 40px;
+      width: 600px;
+      margin-left: 18%;
+      border-radius: 6px;
+    }
+
+    button {
+      height: 40px;
+      width: 90px;
+      border-width: 0px;
+      border-radius: 5px;
+      background-color: #121212;
+      color:white;
+    }
+    </style>
+  </head>
+  <header>
+    <div id="dropdown">
+      <button id="drop_button">Menu</button>
+      <div id="dropdown_content">
+    <a href="index.html">Home</a>
+    <a href="upcoming.html">Latest Movies</a>
+    <a href="toprated.html">Toprated Movies</a>
+    <a href="trending.html">Popular Movies</a>
+    <a href="https://Rahul00641.github.io">About Me</a>
+  </div>
+  </div>
+    <input type="text" id="inp" placeholder="Search Movie">
+    <button id='btn' onclick="search()">Search</button>
+  </header>
+  <body id="body_del">
+    <div id="main_div">
+      <h2 id="title"><hr></h2><hr>
+     <img id="movie_image">
+     <p id="release_date" class="abc">Release Date :  </p>
+       <p id="Genres" class="abc">Genres : </p>
+       <p id="rating" class="abc">Rating : </p>
+       <p id="runtime" class="abc">Runtime : </p>
+       <p id="languages" class="abc">Available In : </p>
+       <p id="location" class="abc">Production Countries : </p>
+       <br><br><br><br>
+       <p id="companies" class="abc">Production Companies : <br><br></p>
+              <p id="overview"class="abc">Overview : </p>
+    </div>
+
+
+  </body>
+
+  <script>
+    var url1='https://api.themoviedb.org/3/movie/'
+    var url2='?api_key=1abd7f142c9c3c96b26874f416be8d5b&language=en-US'
+    var movie_id=location.search.substring('?')
+    var xhr= new XMLHttpRequest()
+    movie_id=movie_id.substring(1,movie_id.length)
+    url=url1+movie_id+url2
+    var main_div=document.getElementById('main_div')
+    xhr.open('Get', url)
+   xhr.onreadystatechange = test
+   function test()
+   {
+     if (this.readyState == 4 && this.status == 200) {
+     var data=JSON.parse(this.responseText)
+     console.log(data)
+     document.getElementById('title').innerHTML=document.getElementById('title').innerHTML+data.title
+     document.getElementById('movie_image').src='http://image.tmdb.org/t/p/w185'+data.poster_path
+     document.getElementById('release_date').innerHTML=document.getElementById('release_date').innerHTML+data.release_date
+     for(var i=0;i<data.genres.length;i++)
+     {
+       if(i==data.genres.length-1)
+       {
+       document.getElementById('Genres').innerHTML= document.getElementById('Genres').innerHTML+data.genres[i].name
+     }
+     else {
+       document.getElementById('Genres').innerHTML= document.getElementById('Genres').innerHTML+data.genres[i].name+' | '
+     }
+     }
+     document.getElementById('rating').innerHTML=document.getElementById('rating').innerHTML+data.vote_average+'/10'
+     document.getElementById('runtime').innerHTML=document.getElementById('runtime').innerHTML+data.runtime+' '+'mins'
+     for(var i=0;i<data.spoken_languages.length;i++)
+     {
+       if(i==data.spoken_languages.length-1)
+       {
+       document.getElementById('languages').innerHTML= document.getElementById('languages').innerHTML+data.spoken_languages[i].name+'('+data.spoken_languages[i].iso_639_1+')'
+     }
+     else {
+       document.getElementById('languages').innerHTML= document.getElementById('languages').innerHTML+data.spoken_languages[i].name+'('+data.spoken_languages[i].iso_639_1+')'+' | '
+     }
+     }
+     document.getElementById('overview').innerHTML=document.getElementById('overview').innerHTML+data.overview
+     for(var i=0;i<data.production_countries.length;i++)
+     {
+       if(i==data.production_countries.length-1)
+       {
+              document.getElementById('location').innerHTML=document.getElementById('location').innerHTML+data.production_countries[i].name
+       }
+       else {
+              document.getElementById('location').innerHTML=document.getElementById('location').innerHTML+data.production_countries[i].name+' | '
+       }
+     }
+   var com_div=document.createElement('div')
+   for(var i=0;i<data.production_companies.length;i++)
+   {
+     if(data.production_companies[i].logo_path!=null)
+     {
+     var in_div=document.createElement('div')
+     var ima=document.createElement('img')
+     ima.setAttribute('src','http://image.tmdb.org/t/p/w185'+data.production_companies[i].logo_path)
+     ima.setAttribute('class','pro_img')
+     in_div.appendChild(ima)
+     in_div.setAttribute('class','com_img')
+     com_div.appendChild(in_div)
+   }
+   }
+   document.getElementById('companies').appendChild(com_div)
+
+   }
+ }
+   xhr.send()
+
+   function search() {
+     var url = 'https://api.themoviedb.org/3/search/movie?api_key=1abd7f142c9c3c96b26874f416be8d5b&query='
+     var im_li = 'http://image.tmdb.org/t/p/w185/'
+     var movie = document.getElementById('inp')
+     url = url + movie.value
+     var xhr = new XMLHttpRequest()
+     xhr.open('Get', url)
+     xhr.onreadystatechange = test4
+
+     function test4() {
+       if (this.readyState == 4 && this.status == 200) {
+         var data = JSON.parse(this.responseText)
+         var m_table = document.createElement('table')
+         var del_div = document.getElementById('main_div')
+         var body = document.getElementById('body_del')
+         del_div.innerHTML = ' '
+         var serial = 0
+         for (var i = 0; i < data.results.length; i++) {
+           if (data.results[i].poster_path != null && data.results[i].vote_average > 0) {
+             serial = serial + 1
+             var table_row = document.createElement('tr')
+             var table_data = document.createElement('td')
+             var image = document.createElement('img')
+             image.setAttribute('class', 'table_img')
+             image.setAttribute('src', im_li + data.results[i].poster_path)
+             table_data.appendChild(image)
+             var table_data2 = document.createElement('td')
+             var text = document.createTextNode(serial + '.        ' + data.results[i].original_title)
+             var title = document.createElement('p')
+             title.appendChild(text)
+             table_data2.appendChild(title)
+             var table_data3 = document.createElement('td')
+             var text = document.createTextNode(data.results[i].vote_average)
+             var rating = document.createElement('p')
+             rating.appendChild(text)
+             table_data3.appendChild(rating)
+             table_row.appendChild(table_data)
+             table_row.appendChild(table_data2)
+             table_row.appendChild(table_data3)
+             table_row.setAttribute('id',data.results[i].id)
+             table_row.setAttribute('onclick','info(id)')
+             m_table.appendChild(table_row)
+           }
+         }
+         del_div.appendChild(m_table)
+       }
+     }
+     xhr.send()
+   }
+
+   function info(id)
+   {
+    location.href='movie.html'+'?'+id
+   }
+
+
+    </script>
+</html>

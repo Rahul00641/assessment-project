@@ -118,12 +118,7 @@
         <p>Rank & Title</p>
       </td>
       <td>
-        <p>Overview</p>
-      <td>
         <p>Rating</p>
-      </td>
-      <td>
-        <p>Release_Date</p>
       </td>
     </tr>
 
@@ -156,26 +151,16 @@
             var title = document.createElement('p')
             title.appendChild(text)
             table_data2.appendChild(title)
-            var table_data3 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].overview)
-            var overview = document.createElement('p')
-            overview.appendChild(text)
-            table_data3.appendChild(overview)
             var table_data4 = document.createElement('td')
             var text = document.createTextNode(data.results[i].vote_average)
             var rating = document.createElement('p')
             rating.appendChild(text)
             table_data4.appendChild(rating)
-            var table_data5 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].release_date)
-            var date = document.createElement('p')
-            date.appendChild(text)
-            table_data5.appendChild(date)
             table_row.appendChild(table_data)
             table_row.appendChild(table_data2)
-            table_row.appendChild(table_data3)
             table_row.appendChild(table_data4)
-            table_row.appendChild(table_data5)
+            table_row.setAttribute('id',data.results[i].id)
+            table_row.setAttribute('onclick','info(id)')
             m_table.appendChild(table_row)
           }
         }
@@ -205,26 +190,16 @@
             var title = document.createElement('p')
             title.appendChild(text)
             table_data2.appendChild(title)
-            var table_data3 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].overview)
-            var overview = document.createElement('p')
-            overview.appendChild(text)
-            table_data3.appendChild(overview)
             var table_data4 = document.createElement('td')
             var text = document.createTextNode(data.results[i].vote_average)
             var rating = document.createElement('p')
             rating.appendChild(text)
             table_data4.appendChild(rating)
-            var table_data5 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].release_date)
-            var date = document.createElement('p')
-            date.appendChild(text)
-            table_data5.appendChild(date)
             table_row.appendChild(table_data)
             table_row.appendChild(table_data2)
-            table_row.appendChild(table_data3)
             table_row.appendChild(table_data4)
-            table_row.appendChild(table_data5)
+            table_row.setAttribute('id',data.results[i].id)
+            table_row.setAttribute('onclick','info(id)')
             m_table.appendChild(table_row)
           }
         }
@@ -232,7 +207,7 @@
     }
     xhr.send()
 
-    
+
     var url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=1abd7f142c9c3c96b26874f416be8d5b&language=en-US&page=3'
     var xhr = new XMLHttpRequest()
     xhr.open('Get', url)
@@ -255,26 +230,16 @@
             var title = document.createElement('p')
             title.appendChild(text)
             table_data2.appendChild(title)
-            var table_data3 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].overview)
-            var overview = document.createElement('p')
-            overview.appendChild(text)
-            table_data3.appendChild(overview)
             var table_data4 = document.createElement('td')
             var text = document.createTextNode(data.results[i].vote_average)
             var rating = document.createElement('p')
             rating.appendChild(text)
             table_data4.appendChild(rating)
-            var table_data5 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].release_date)
-            var date = document.createElement('p')
-            date.appendChild(text)
-            table_data5.appendChild(date)
             table_row.appendChild(table_data)
             table_row.appendChild(table_data2)
-            table_row.appendChild(table_data3)
             table_row.appendChild(table_data4)
-            table_row.appendChild(table_data5)
+            table_row.setAttribute('id',data.results[i].id)
+            table_row.setAttribute('onclick','info(id)')
             m_table.appendChild(table_row)
           }
         }
@@ -313,32 +278,27 @@
               var title = document.createElement('p')
               title.appendChild(text)
               table_data2.appendChild(title)
-            var table_data3 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].overview)
-            var overview = document.createElement('p')
-            overview.appendChild(text)
-            table_data3.appendChild(overview)
             var table_data4 = document.createElement('td')
             var text = document.createTextNode(data.results[i].vote_average)
             var rating = document.createElement('p')
             rating.appendChild(text)
             table_data4.appendChild(rating)
-            var table_data5 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].release_date)
-            var date = document.createElement('p')
-            date.appendChild(text)
-            table_data5.appendChild(date)
             table_row.appendChild(table_data)
             table_row.appendChild(table_data2)
-            table_row.appendChild(table_data3)
             table_row.appendChild(table_data4)
-            table_row.appendChild(table_data5)
+            table_row.setAttribute('id',data.results[i].id)
+            table_row.setAttribute('onclick','info(id)')
             m_table.appendChild(table_row)
             }
           }
         }
       }
       xhr.send()
+    }
+
+    function info(id)
+    {
+     location.href='movie.html'+'?'+id
     }
   </script>
 </body>

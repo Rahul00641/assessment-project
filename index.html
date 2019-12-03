@@ -13,6 +13,7 @@
 
     img {
       border-radius: 10px;
+      border: 1px solid white;
     }
 
     .title {
@@ -171,7 +172,9 @@
         out_div.appendChild(in_div)
         for (var i = 0; i < 6; i++) {
           var in_div = document.createElement('div')
+          in_div.setAttribute('id', data.results[i].id)
           in_div.setAttribute('class', 'in_div')
+          in_div.setAttribute('onclick', 'info(id)')
           var image = document.createElement('img')
           image.setAttribute('src', im_li + data.results[i].poster_path)
           in_div.appendChild(image)
@@ -196,7 +199,9 @@
         out_div.appendChild(in_div)
         for (var i = 0; i < 6; i++) {
           var in_div = document.createElement('div')
+          in_div.setAttribute('id', data.results[i].id)
           in_div.setAttribute('class', 'in_div')
+          in_div.setAttribute('onclick', 'info(id)')
           var image = document.createElement('img')
           image.setAttribute('src', im_li + data.results[i].poster_path)
           in_div.appendChild(image)
@@ -221,7 +226,9 @@
         out_div.appendChild(in_div)
         for (var i = 0; i < 6; i++) {
           var in_div = document.createElement('div')
+          in_div.setAttribute('id', data.results[i].id)
           in_div.setAttribute('class', 'in_div')
+          in_div.setAttribute('onclick', 'info(id)')
           var image = document.createElement('img')
           image.setAttribute('src', im_li + data.results[i].poster_path)
           in_div.appendChild(image)
@@ -263,26 +270,16 @@
               var title = document.createElement('p')
               title.appendChild(text)
               table_data2.appendChild(title)
-            var table_data3 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].overview)
-            var overview = document.createElement('p')
-            overview.appendChild(text)
-            table_data3.appendChild(overview)
             var table_data4 = document.createElement('td')
             var text = document.createTextNode(data.results[i].vote_average)
             var rating = document.createElement('p')
             rating.appendChild(text)
             table_data4.appendChild(rating)
-            var table_data5 = document.createElement('td')
-            var text = document.createTextNode(data.results[i].release_date)
-            var date = document.createElement('p')
-            date.appendChild(text)
-            table_data5.appendChild(date)
             table_row.appendChild(table_data)
             table_row.appendChild(table_data2)
-            table_row.appendChild(table_data3)
             table_row.appendChild(table_data4)
-            table_row.appendChild(table_data5)
+            table_row.setAttribute('id',data.results[i].id)
+            table_row.setAttribute('onclick','info(id)')
             m_table.appendChild(table_row)
             }
           }
@@ -290,6 +287,11 @@
         }
       }
       xhr.send()
+    }
+
+    function info(id)
+    {
+     location.href='movie.html'+'?'+id
     }
   </script>
 </body>
