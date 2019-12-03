@@ -300,6 +300,7 @@
 
       function test4() {
         if (this.readyState == 4 && this.status == 200) {
+          var data=JSON.parse(this.responseText)
               serial = serial + 1
               var table_row = document.createElement('tr')
               var table_data = document.createElement('td')
